@@ -75,7 +75,7 @@ object dictionary {
     val classesDir = new File(getClass.getResource(".").toURI)
     val projectDir = classesDir.getParentFile.getParentFile.getParentFile.getParentFile
     val resourceFile = subFile(projectDir, ("src" :: "main" :: "resources" :: resourcePath): _*)
-    if (resourceFile.existss)
+    if (resourceFile.exists)
       Some(new java.io.FileInputStream(resourceFile))
     else
       None

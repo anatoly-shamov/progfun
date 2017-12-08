@@ -95,3 +95,13 @@ encode(List(1, 1, 1, 2, 2, 3, 4, 4, 4, 4))
 def encode2[T](xs: List[T]): List[(T, Int)] = pack(xs) map (ys => (ys.head, ys.length))
 
 encode2(List(1, 1, 1, 2, 2, 3, 4, 4, 4, 4))
+
+def mapFun[T, U](xs: List[T], f: T => U): List[U] =
+  (xs foldRight List[U]())( (x, l) => f(x) :: l )
+
+mapFun(oddsList, (x: Int) => x * x)
+
+def lengthFun[T](xs: List[T]): Int =
+  (xs foldRight 0)( (x, c) => c + 1 )
+
+lengthFun(oddsList)

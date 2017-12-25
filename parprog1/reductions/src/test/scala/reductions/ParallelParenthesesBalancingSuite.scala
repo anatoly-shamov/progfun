@@ -45,19 +45,52 @@ class ParallelParenthesesBalancingSuite extends FunSuite {
     check(").", false)
   }
 
-  test("parBalance should work") {
+  test("parBalance should work, threshold 4") {
     def check(input: String, expected: Boolean) =
       assert(parBalance(input.toArray, 4) == expected,
         s"balance '$input' should be $expected")
 
-//    check("()()(()()(),,", false)
-//    check("()()..)()(),,", false)
-//    check("()()..()(),,(", false)
-//    check("()().()()()..)", false)
-//    check(".............", true)
-//    check("((__)..(..).)", true)
-//    check("))))((((", false)
+    check("()()(()()(),,", false)
+    check("()()..)()(),,", false)
+    check("()()..()(),,(", false)
+    check("()().()()()..)", false)
+    check(".............", true)
+    check("((__)..(..).)", true)
+    check("))))((((", false)
     check(")()()()(", false)
+    check("(()()())", true)
+  }
+
+  test("parBalance should work, threshold 2") {
+    def check(input: String, expected: Boolean) =
+      assert(parBalance(input.toArray, 4) == expected,
+        s"balance '$input' should be $expected")
+
+    check("()()(()()(),,", false)
+    check("()()..)()(),,", false)
+    check("()()..()(),,(", false)
+    check("()().()()()..)", false)
+    check(".............", true)
+    check("((__)..(..).)", true)
+    check("))))((((", false)
+    check(")()()()(", false)
+    check("(()()())", true)
+  }
+
+  test("parBalance should work, threshold 1") {
+    def check(input: String, expected: Boolean) =
+      assert(parBalance(input.toArray, 4) == expected,
+        s"balance '$input' should be $expected")
+
+    check("()()(()()(),,", false)
+    check("()()..)()(),,", false)
+    check("()()..()(),,(", false)
+    check("()().()()()..)", false)
+    check(".............", true)
+    check("((__)..(..).)", true)
+    check("))))((((", false)
+    check(")()()()(", false)
+    check("(()()())", true)
   }
 
   test("parBalance should work for nested parentheses and threshold 1") {

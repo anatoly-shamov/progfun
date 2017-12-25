@@ -60,7 +60,7 @@ object ParallelParenthesesBalancing {
     def traverse(idx: Int, until: Int, arg1: Int, arg2: Int) : (Int, Int) = {
       if (idx == until) (arg1, arg2)
       else if (chars(idx) == '(') traverse(idx + 1, until, arg1 + 1, arg2)
-      else if (chars(idx) == ')') traverse(idx + 1, until, arg1 - 1, arg2)
+      else if (chars(idx) == ')') traverse(idx + 1, until, arg1 - 1, if (arg1 == arg2) arg2 - 1 else arg2)
       else traverse(idx + 1, until, arg1, arg2)
     }
 
@@ -69,8 +69,12 @@ object ParallelParenthesesBalancing {
       traverse(from, until, 0, 0)
     else {
       val mid = from + (until - from) / 2
-      val ((arg1_1, arg2_1), (arg1_2, arg2_2)) = parallel(reduce(from, mid), reduce(mid, until))
-      (arg1_1 + arg1_2, if (arg1_1 >= arg1_2) arg1_1 + arg1_2 else Int.MinValue)
+      val ((arg1_1, arg2_1), (arg1_2, arg2_2)) =
+        parallel(
+          reduce(from, mid),
+          reduce(mid, until)
+        )
+      (arg1_1 + arg1_2, math.min(arg2_1, arg1_1 + arg2_2))
     }
   }
 

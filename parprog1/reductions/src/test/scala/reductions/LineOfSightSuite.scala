@@ -41,5 +41,18 @@ class LineOfSightSuite extends FunSuite {
     downsweep(Array[Float](0.0f, 7.0f, 10.0f, 33.0f, 48.0f), output, 0f, Node(Node(Leaf(1, 2, 7.0f), Leaf(2, 3, 5.0f)), Node(Leaf(3, 4, 11.0f), Leaf(4, 5, 12.0f))))
     assert(output.toList == List(0.0f, 7.0f, 7.0f, 11.0f, 12.0f))
   }
+
+  test("parLineOfSight should correctly compute the output for threshold 2") {
+    val output = new Array[Float](5)
+    parLineOfSight(Array[Float](0.0f, 7.0f, 10.0f, 33.0f, 48.0f), output, 2)
+    assert(output.toList == List(0.0f, 7.0f, 7.0f, 11.0f, 12.0f))
+  }
+
+  test("downsweep should correctly compute the output for a non-zero starting angle") {
+    val output = new Array[Float](5)
+    downsweep(Array[Float](0.0f, 7.0f, 10.0f, 33.0f, 48.0f), output, 8.0f, Node(Node(Leaf(1, 2, 7.0f), Leaf(2, 3, 5.0f)), Node(Leaf(3, 4, 11.0f), Leaf(4, 5, 12.0f))))
+    assert(output.toList == List(0.0f, 8.0f, 8.0f, 11.0f, 12.0f))
+  }
+
 }
 

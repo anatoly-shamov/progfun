@@ -110,11 +110,13 @@ object LineOfSight {
   def downsweep(input: Array[Float], output: Array[Float], startingAngle: Float,
                 tree: Tree): Unit = {
     tree match {
-      case Node(l, r) =>
+      case Node(l, r) => {
+        val maxAngle = math.max(startingAngle, l.maxPrevious)
         parallel(
-          downsweep(input, output, l.maxPrevious, l),
-          downsweep(input, output, tree.maxPrevious, r)
+          downsweep(input, output, maxAngle, l),
+          downsweep(input, output, maxAngle, r)
         )
+      }
       case Leaf(from, until, maxPrevious) => downsweepSequential(input, output, startingAngle, from, until)
     }
 
